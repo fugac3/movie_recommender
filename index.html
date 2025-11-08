@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Movie Recommender</h1>
+        <hr>
+    </header>
+
+    <main>
+        <aside id="filters">
+            <label>Genre</label>
+            <select id="genre-btn">
+                <option value="action">Action</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+            </select>
+
+            <label>Year</label>
+            <input type="range" id="year-slider" min="1920" max="2025">
+            <p id="year-value">2025</p>
+
+            <label>Rating</label>
+            <select id="rating-btn">
+                <option value="1">1 Star</option>
+                <option value="2">2 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="5">5 Stars</option>
+            </select>
+
+            <button id="random-movie">Random Movie</button>
+        </aside>
+
+        <section id="recommendation">
+            <div id="movie-card">
+                <h2 id="movie-title">Movie Title</h2>
+                <p id="movie-genre">Action</p>
+                <p id="movie-year">2025</p>
+                <p id="movie-description">This is a brief description of the movie.</p>
+                <p id="movie-rating">5 Stars</p>
+                <img id="movie-poster" src="placeholder.jpeg" alt="Movie Poster">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Movie Recommender</p>
+    </footer>
+    <!-- <script src="script.js"></script> -->
+</body>
+
+</html>
