@@ -1,0 +1,323 @@
+/* Import classic cinema fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
+
+/* Classic black & white cinema palette */
+:root {
+    --vintage-black: #1a1a1a;
+    --vintage-charcoal: #2d2d2d;
+    --vintage-gray: #4a4a4a;
+    --vintage-light-gray: #7a7a7a;
+    --vintage-silver: #b8b8b8;
+    --vintage-cream: #f5f5f5;
+    --vintage-white: #ffffff;
+    --film-shadow: rgba(0, 0, 0, 0.4);
+    --soft-glow: rgba(255, 255, 255, 0.1);
+    --accent-shadow: rgba(0, 0, 0, 0.6);
+}
+
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Crimson Text', serif;
+    background:
+        radial-gradient(ellipse at center, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.863) 100%),
+        /* Subtle vignette effect */
+        linear-gradient(135deg, var(--vintage-silver) 0%, var(--vintage-white) 100%);
+    /* Soft gradient background */
+    color: var(--vintage-charcoal);
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Header - Clean and simple */
+header {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    position: relative;
+    z-index: 5;
+}
+
+h1 {
+    font-family: 'Rye', cursive;
+    font-size: 3.5rem;
+    font-weight: 600;
+    /*Allow background to show through*/
+    color: transparent;
+    /*Silver lines in middle of heading*/
+    background: var(--vintage-silver);
+    /*Apply background of vintage-silver only to text*/
+    -webkit-background-clip: text;
+    background-clip: text;
+    /*Font outline*/
+    -webkit-text-stroke: 1px var(--vintage-charcoal);
+    letter-spacing: 4px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+hr {
+    width: 300px;
+    margin: 1rem auto;
+    /* Centered horizontal rule */
+    height: 1px;
+    background: var(--vintage-gray);
+    border: none;
+}
+
+/* Main layout */
+main {
+    display: flex;
+    max-width: 1200px;
+    margin: 0.25rem auto;
+    padding: 0 3rem;
+    /* Space between sidebar and recommendation */
+    gap: 4rem;
+    position: relative;
+    z-index: 5;
+}
+
+/* Filters sidebar - Clean and minimal */
+#filters {
+    flex: 0 0 280px;
+    background: var(--vintage-white);
+    padding: 2rem;
+    border: 1px solid var(--vintage-light-gray);
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+}
+
+#filters::before {
+    content: '🎬';
+    font-size: 1.8rem;
+    display: block;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
+}
+
+#filters label {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--vintage-charcoal);
+    margin: 1.5rem 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#filters label:first-of-type {
+    margin-top: 0;
+}
+
+/* Form controls - Simple and clean */
+select,
+input[type="range"] {
+    width: 100%;
+    margin-bottom: 1.2rem;
+    border: 1px solid var(--vintage-light-gray);
+    border-radius: 4px;
+    background: var(--vintage-white);
+    color: var(--vintage-charcoal);
+    font-family: 'Crimson Text', serif;
+    transition: all 0.2s ease;
+}
+
+select {
+    padding: 0.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%234a4a4a' viewBox='0 0 16 16'%3e%3cpath d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    background-size: 12px;
+}
+
+select:focus,
+input[type="range"]:focus {
+    outline: none;
+    border-color: var(--vintage-charcoal);
+    box-shadow: 0 0 0 2px rgba(74, 74, 74, 0.1);
+}
+
+select:hover {
+    border-color: var(--vintage-gray);
+}
+
+/* Year slider - Minimal style */
+#year-slider {
+    height: 4px;
+    background: var(--vintage-light-gray);
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#year-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--vintage-charcoal);
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+#year-slider::-webkit-slider-thumb:hover {
+    background: var(--vintage-black);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#year-value {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--vintage-charcoal);
+    font-weight: 600;
+    margin: 0.8rem 0;
+}
+
+/* Random movie button - Clean design */
+#random-movie {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: var(--vintage-white);
+    background: var(--vintage-charcoal);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2rem;
+}
+
+#random-movie:hover {
+    background: var(--vintage-black);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Movie card - Classic film poster style */
+#recommendation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#movie-card {
+    background: var(--vintage-white);
+    padding: 3rem;
+    border: 1px solid var(--vintage-light-gray);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+#movie-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--vintage-black);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    letter-spacing: 2px;
+}
+
+#movie-card p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+#movie-genre,
+#movie-year,
+#movie-rating {
+    color: var(--vintage-gray);
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+}
+
+#movie-description {
+    color: var(--vintage-charcoal);
+    font-style: italic;
+    margin: 2rem 0;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+#movie-poster {
+    width: 100%;
+    max-width: 280px;
+    height: 380px;
+    object-fit: cover;
+    border: 1px solid var(--vintage-light-gray);
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    transition: transform 0.2s ease;
+}
+
+#movie-poster:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Footer - Simple and clean */
+footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 5;
+}
+
+footer p {
+    color: var(--vintage-gray);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        padding: 0 1.5rem;
+        gap: 2rem;
+    }
+
+    #filters {
+        flex: none;
+        position: static;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+
+    #movie-card {
+        padding: 2rem;
+    }
+
+    #movie-title {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+}
