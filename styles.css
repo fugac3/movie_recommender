@@ -1,28 +1,16 @@
-/* Vintage cinema palette - Film Noir Glamour */
 :root {
     --cinema-midnight: #0f1419;
-    --cinema-deep-blue: #1a2332;
     --cinema-steel-blue: #2c3e50;
-    --cinema-slate: #34495e;
-    --cinema-pewter: #5d6d7e;
-    --cinema-silver-mist: #85929e;
     --cinema-gold: #f7dc6f;
     --cinema-gold-leaf: #e6b800;
     --cinema-warm-cream: #fef9e7;
     --cinema-pearl: #fdfefe;
     --cinema-burgundy: #922b21;
     --cinema-deep-burgundy: #7b241c;
-
-    /* Sophisticated accents */
     --cinema-copper: #d68910;
     --cinema-bronze: #b7950b;
-    --cinema-rose-gold: #ec7063;
-    --cinema-vintage-teal: #48c9b0;
-
-    /* Shadows and effects */
     --dramatic-shadow: rgba(15, 20, 25, 0.4);
     --golden-glow: rgba(247, 220, 111, 0.3);
-    --burgundy-glow: rgba(146, 43, 33, 0.2);
     --inner-luxury: inset 0 2px 6px rgba(15, 20, 25, 0.15);
     --paper-texture: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f7dc6f' fill-opacity='0.03'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3Ccircle cx='17' cy='17' r='1'/%3E%3Ccircle cx='27' cy='27' r='1'/%3E%3Ccircle cx='37' cy='37' r='1'/%3E%3Ccircle cx='47' cy='47' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
@@ -36,16 +24,9 @@
 
 body {
     font-family: 'Playfair Display', serif;
-    background:
-        radial-gradient(ellipse at center,
-            var(--cinema-warm-cream) 0%,
-            var(--cinema-gold) 25%,
-            var(--cinema-pewter) 60%,
-            var(--cinema-steel-blue) 85%,
-            var(--cinema-midnight) 100%);
-    color: var(--cinema-deep-blue);
+    background: radial-gradient(ellipse at center, var(--cinema-warm-cream) 0%, var(--cinema-gold) 30%, var(--cinema-steel-blue) 70%, var(--cinema-midnight) 100%);
+    color: var(--cinema-steel-blue);
     min-height: 100vh;
-    position: relative;
     overflow-x: hidden;
 }
 
@@ -61,56 +42,14 @@ h1 {
     font-family: 'Rye', cursive;
     font-size: 4rem;
     font-weight: 400;
-    background: linear-gradient(135deg,
-            var(--cinema-burgundy) 0%,
-            var(--cinema-gold-leaf) 30%,
-            var(--cinema-gold) 70%,
-            var(--cinema-copper) 100%);
+    background: linear-gradient(135deg, var(--cinema-burgundy) 0%, var(--cinema-gold-leaf) 50%, var(--cinema-copper) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     letter-spacing: 3px;
     margin-bottom: 0.5rem;
     text-transform: uppercase;
-    position: relative;
     filter: drop-shadow(2px 2px 4px var(--dramatic-shadow));
-}
-
-/* Decorative stars around title */
-h1::before,
-h1::after {
-    content: '★';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5rem;
-    background: linear-gradient(45deg, var(--cinema-gold-leaf), var(--cinema-copper));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    opacity: 0.9;
-    animation: starShimmer 3s ease-in-out infinite alternate;
-}
-
-@keyframes starShimmer {
-    0% {
-        transform: translateY(-50%) scale(1);
-        opacity: 0.7;
-    }
-
-    100% {
-        transform: translateY(-50%) scale(1.1);
-        opacity: 1;
-        filter: drop-shadow(0 0 8px var(--golden-glow));
-    }
-}
-
-h1::before {
-    left: -3rem;
-}
-
-h1::after {
-    right: -3rem;
 }
 
 hr {
@@ -143,16 +82,11 @@ main {
 /* Filters sidebar - Vintage cinema signage */
 #filters {
     flex: 0 0 220px;
-    background:
-        var(--paper-texture),
-        linear-gradient(145deg, var(--cinema-warm-cream) 0%, var(--cinema-pearl) 50%, var(--cinema-gold) 100%);
+    background: var(--paper-texture), linear-gradient(145deg, var(--cinema-warm-cream) 0%, var(--cinema-gold) 100%);
     padding: 1.5rem;
     border: 2px solid var(--cinema-bronze);
     border-radius: 12px;
-    box-shadow:
-        0 12px 35px var(--dramatic-shadow),
-        var(--inner-luxury),
-        0 0 0 1px var(--golden-glow);
+    box-shadow: 0 12px 35px var(--dramatic-shadow), var(--inner-luxury);
     position: sticky;
     top: 2rem;
     height: fit-content;
@@ -168,28 +102,7 @@ main {
     display: block;
     text-align: center;
     margin-bottom: 1.2rem;
-    background: linear-gradient(135deg, var(--cinema-deep-burgundy), var(--cinema-burgundy));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(1px 1px 2px var(--golden-glow));
-}
-
-/* Decorative separator */
-#filters::after {
-    content: '';
-    position: absolute;
-    top: 3.5rem;
-    left: 1.5rem;
-    right: 1.5rem;
-    height: 2px;
-    background: linear-gradient(90deg,
-            transparent,
-            var(--cinema-burgundy) 20%,
-            var(--cinema-gold-leaf) 50%,
-            var(--cinema-burgundy) 80%,
-            transparent);
-    filter: drop-shadow(0 1px 2px var(--golden-glow));
+    color: var(--cinema-deep-burgundy);
 }
 
 #filters label {
@@ -225,43 +138,45 @@ input[type="range"] {
     margin-bottom: 1rem;
     border: 2px solid var(--cinema-bronze);
     border-radius: 10px;
-    background:
-        var(--paper-texture),
-        linear-gradient(145deg, var(--cinema-pearl) 0%, var(--cinema-gold) 100%);
-    color: var(--cinema-deep-blue);
+    background: var(--paper-texture), linear-gradient(145deg, var(--cinema-pearl) 0%, var(--cinema-gold) 100%);
+    color: var(--cinema-steel-blue);
     font-family: 'Cormorant Garamond', serif;
-    transition: all 0.3s ease;
     box-shadow: var(--inner-luxury);
 }
 
 select {
     padding: 0.7rem;
     font-size: 0.9rem;
-    font-weight: 500;
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%232c3e50' viewBox='0 0 16 16'%3e%3cpath d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 0.7rem center;
-    background-size: 12px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 0.3s ease;
 }
 
 select:focus,
 input[type="range"]:focus {
     outline: none;
     border-color: var(--cinema-gold-leaf);
-    box-shadow:
-        var(--inner-luxury),
-        0 0 0 3px var(--golden-glow);
-    transform: translateY(-1px);
+    box-shadow: var(--inner-luxury), 0 0 0 3px var(--golden-glow);
 }
 
-select:hover {
+/* Hover effects for genre and rating dropdowns */
+#genre-btn:hover,
+#rating-btn:hover {
     border-color: var(--cinema-gold-leaf);
-    background:
-        var(--paper-texture),
-        linear-gradient(145deg, var(--cinema-gold) 0%, var(--cinema-pearl) 100%);
-    transform: translateY(-1px);
+    background: linear-gradient(145deg, var(--cinema-gold) 0%, var(--cinema-warm-cream) 100%);
+    box-shadow: var(--inner-luxury), 0 0 0 2px var(--golden-glow);
+    color: var(--cinema-deep-burgundy);
+}
+
+#genre-btn option,
+#rating-btn option {
+    background: #fef9e7;
+    color: #2c3e50;
+    font-family: inherit;
+    padding: 8px 12px;
+    border: none;
 }
 
 /* Year slider - Luxury vintage style */
@@ -312,50 +227,26 @@ select:hover {
     text-shadow: 1px 1px 2px var(--golden-glow);
 }
 
-/* Random movie button - Vintage marquee ticket style */
 #random-movie {
     width: 100%;
     padding: 0.8rem;
     font-size: 0.8rem;
     font-family: 'Cinzel', serif;
     font-weight: 600;
-    color: var(--cinema-off-white);
-    background: linear-gradient(145deg, var(--cinema-charcoal), var(--cinema-dark-grey));
-    border: 1px solid var(--cinema-off-white);
+    color: var(--cinema-deep-burgundy);
+    background: linear-gradient(145deg, var(--cinema-gold) 0%, var(--cinema-warm-cream) 100%);
+    border: 2px solid var(--cinema-deep-burgundy);
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-top: 1.5rem;
-    box-shadow:
-        0 6px 20px var(--soft-shadow),
-        var(--inner-shadow);
-    position: relative;
-}
-
-/* Ticket perforation effect */
-#random-movie::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 1rem;
-    right: 1rem;
-    height: 2px;
-    background: repeating-linear-gradient(90deg,
-            transparent,
-            transparent 4px,
-            var(--cinema-off-white) 4px,
-            var(--cinema-off-white) 6px);
+    transition: all 0.3s ease;
 }
 
 #random-movie:hover {
-    background: linear-gradient(145deg, var(--cinema-dark-grey), var(--cinema-charcoal));
+    background: linear-gradient(145deg, var(--cinema-copper) 0%, var(--cinema-gold) 100%);
     transform: translateY(-2px);
-    box-shadow:
-        0 10px 30px var(--soft-shadow),
-        0 0 0 2px var(--vintage-glow),
-        var(--inner-shadow);
 }
 
 /* Movie card - Vintage cinema poster frame */
@@ -367,35 +258,23 @@ select:hover {
 }
 
 #movie-card {
-    background:
-        var(--paper-texture),
-        linear-gradient(145deg, var(--cinema-warm-cream) 0%, var(--cinema-pearl) 50%, var(--cinema-gold) 100%);
+    background: var(--paper-texture), linear-gradient(145deg, var(--cinema-warm-cream) 0%, var(--cinema-gold) 100%);
     padding: 2rem;
     border: 2px solid var(--cinema-bronze);
     border-radius: 20px;
-    box-shadow:
-        0 20px 40px rgba(139, 69, 19, 0.4),
-        0 10px 25px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 251, 239, 0.8),
-        var(--inner-luxury);
+    box-shadow: 0 20px 40px var(--dramatic-shadow), var(--inner-luxury);
     max-width: 700px;
     width: 100%;
     position: relative;
     display: flex;
     align-items: flex-start;
     gap: 2rem;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
 }
 
 #movie-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow:
-        0 30px 60px rgba(139, 69, 19, 0.6),
-        0 15px 35px rgba(0, 0, 0, 0.4),
-        inset 0 2px 0 rgba(255, 251, 239, 0.9),
-        0 0 0 2px var(--golden-glow);
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px var(--dramatic-shadow), var(--inner-luxury), 0 0 0 2px var(--golden-glow);
 }
 
 /* Decorative corner elements - gold accents */
@@ -442,36 +321,15 @@ select:hover {
     margin-bottom: 0.8rem;
     line-height: 1.2;
     letter-spacing: 1px;
-    text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.3);
-    position: relative;
-    animation: subtleShimmer 4s ease-in-out infinite;
 }
 
-/* Enhanced decorative stars */
-#movie-title::after {
-    content: '✦ ✧ ✦';
+#movie-decor {
     display: block;
     font-size: 0.8rem;
-    background: linear-gradient(90deg, var(--cinema-gold-leaf) 0%, var(--cinema-copper) 50%, var(--cinema-gold-leaf) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-top: 0.4rem;
+    color: var(--cinema-gold-leaf);
+    margin-top: 0.1rem;
     letter-spacing: 4px;
     opacity: 0.9;
-    animation: starTwinkle 3s ease-in-out infinite;
-}
-
-@keyframes starTwinkle {
-
-    0%,
-    100% {
-        opacity: 0.7;
-    }
-
-    50% {
-        opacity: 1;
-    }
 }
 
 /* Movie poster section */
@@ -515,72 +373,31 @@ select:hover {
     object-fit: fill;
     border: 3px solid var(--cinema-gold-leaf);
     border-radius: 12px;
-    box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.6),
-        0 5px 15px rgba(139, 69, 19, 0.4),
-        inset 0 1px 0 rgba(255, 251, 239, 0.3),
-        0 0 0 1px var(--golden-glow);
+    /* Smooth hover effect */
     transition: all 0.3s ease;
     position: relative;
 }
 
 #movie-poster:hover {
     transform: scale(1.05);
-    box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.7),
-        0 8px 20px rgba(139, 69, 19, 0.5),
-        0 0 0 3px var(--golden-glow);
-    border-color: var(--cinema-copper);
+    box-shadow: 0 10px 20px var(--cinema-bronze), 0 0 0 3px var(--golden-glow);
+    border-color: var(--cinema-gold-leaf);
 }
 
-/* Luxury vintage photo corner effect */
-#movie-poster::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    right: -3px;
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-top: 15px solid var(--cinema-deep-burgundy);
-    box-shadow: 0 0 5px var(--golden-glow);
-}
-
-#movie-poster:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow:
-        0 15px 35px var(--soft-shadow),
-        0 0 0 3px var(--vintage-glow),
-        inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-/* Footer - Vintage credits style */
 footer {
     text-align: center;
     padding: 2rem;
     margin-top: 2rem;
-    position: relative;
-    z-index: 5;
-}
-
-footer::before {
-    content: '✦ ✦ ✦';
-    display: block;
-    color: var(--cinema-muted-gold);
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 8px;
 }
 
 footer p {
-    color: var(--cinema-medium-grey);
+    color: var(--cinema-steel-blue);
     font-size: 0.9rem;
     font-style: italic;
     font-family: 'Cormorant Garamond', serif;
-    letter-spacing: 1px;
 }
 
-/* Responsive design */
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
     main {
         flex-direction: column;
