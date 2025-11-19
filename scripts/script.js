@@ -19,16 +19,22 @@ async function randomMovieGenerator() {
 console.log(randomMovieGenerator());
 
 async function movieElements() {
-  //   document.addEventListener("DOMContentLoaded", () => randomMovieGenerator());
   const movieTitleHtml = document.getElementById("movie-title");
   const movieGenreHtml = document.getElementById("movie-genre");
   const movieYearHtml = document.getElementById("movie-year");
 
   const movie = await randomMovieGenerator();
+  let movieTitle;
+  let movieYear;
 
-  const movieParts = movie.title.split("(");
-  const movieTitle = movieParts[0].trim();
-  const movieYear = movieParts[1].replace(")", "").trim();
+  const regex = /^(.*?)\s*\((\d{4})\)\s*$/; //structure for title: return movie title and year "(Totoro (Studio Ghibli) (1990))"
+  const match = movie.title.match(regex); //if title and regex matches...
+
+  //title will be first part and year second
+  if (match) {
+    movieTitle = match[1].trim();
+    movieYear = match[2].trim();
+  }
 
   movieTitleHtml.textContent = movieTitle;
   movieGenreHtml.textContent = movie.genres;
@@ -38,7 +44,7 @@ async function movieElements() {
 function populateMovie() {
   randomMovieButton = document.getElementById("random-movie");
   randomMovieButton.addEventListener("click", () => {
-    movieElements();
+    movieElements(); // populate movie card by calling movieElements
   });
 }
 
