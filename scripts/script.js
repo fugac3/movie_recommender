@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => movieElements());
+document.addEventListener("DOMContentLoaded", () => {
+  movieElements();
+  populateGenresDropdown();
+});
 
 async function loadMovies() {
   const response = await fetch("scripts/movies.csv");
@@ -23,7 +26,8 @@ async function movieElements() {
   const movieGenreHtml = document.getElementById("movie-genre");
   const movieYearHtml = document.getElementById("movie-year");
 
-  const movie = await randomMovieGenerator();
+  const movie = await randomMovieGenerator(); //get random movie
+
   let movieTitle;
   let movieYear;
 
@@ -49,3 +53,31 @@ function populateMovie() {
 }
 
 populateMovie();
+
+async function listGenres() {
+  const movies = await loadMovies(); //get movies first (await promise)
+
+  const genreSet = new Set();
+  for (const movie of movies) {
+    if (!movie.genres) continue; //skip if no genres
+    const genres = movie.genres.split("|");
+    for (const genre of genres) {
+      genreSet.add(genre);
+    }
+  }
+  return genreSet;
+}
+
+console.log(listGenres());
+
+async function populateGenresDropdown() {
+  const genreOptions = await listGenres();
+  const genreSelect = document.getElementById("genre-btn");
+
+  for (const genre of genreOptions) {
+    const option = document.createElement("option");
+    option.textContent = genre;
+    option.value = genre.toLowerCase();
+    genreSelect.appendChild(option);
+  }
+}
