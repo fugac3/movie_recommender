@@ -8,25 +8,26 @@ async function loadMovies() {
   const csvText = await response.text(); //turn csv response to text
   const parsed = Papa.parse(csvText, { header: true }); //turn into object || header makes headings keys
   const movies = parsed.data;
-  return movies;
+  return movies; //return array of movie objects
 }
 
 console.log(loadMovies());
 
-async function randomMovieGenerator() {
-  const movies = await loadMovies(); //wait for promise to be fulfilled
+async function randomMovieGenerator(movies = []) {
+  //get random movie from array of movies | if no array passed in (aka default empty), load from csv
+  if (movies.length === 0) movies = await loadMovies(); //load csv movies if none passed in
   let randomMovieIndex = Math.floor(Math.random() * movies.length); //get random index in array of movies
   return movies[randomMovieIndex];
 }
 
 console.log(randomMovieGenerator());
 
-async function movieElements() {
+async function movieElements(randomMovie) {
   const movieTitleHtml = document.getElementById("movie-title");
   const movieGenreHtml = document.getElementById("movie-genre");
   const movieYearHtml = document.getElementById("movie-year");
 
-  const movie = await randomMovieGenerator(); //get random movie
+  const movie = randomMovie || (await randomMovieGenerator()); //get random movie if not passed in
 
   let movieTitle;
   let movieYear;
@@ -45,10 +46,10 @@ async function movieElements() {
   movieYearHtml.textContent = movieYear;
 }
 
-function populateMovie() {
+function populateMovie(movie) {
   randomMovieButton = document.getElementById("random-movie");
   randomMovieButton.addEventListener("click", () => {
-    movieElements(); // populate movie card by calling movieElements
+    movieElements(movie); // populate movie card by calling movieElements
   });
 }
 
@@ -77,7 +78,27 @@ async function populateGenresDropdown() {
   for (const genre of genreOptions) {
     const option = document.createElement("option");
     option.textContent = genre;
-    option.value = genre.toLowerCase();
+    option.value = genre;
     genreSelect.appendChild(option);
   }
 }
+
+async function randomMovieBasedOnGenre() {
+  const movies = await loadMovies();
+  const selectGenreButton = document.getElementById("genre-btn"); //select element in HTML
+  selectGenreButton.addEventListener("change", async (event) => {
+    const selectedGenre = event.target.value; //grab value of selected genre
+    const moviesInGenre = [];
+
+    for (const movie of movies) {
+      if (movie.genres.includes(selectedGenre)) {
+        moviesInGenre.push(movie);
+      }
+    }
+
+    const randomMovieInGenre = await randomMovieGenerator(moviesInGenre);
+    movieElements(randomMovieInGenre);
+  });
+}
+
+randomMovieBasedOnGenre();
