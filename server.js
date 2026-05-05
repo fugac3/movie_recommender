@@ -56,9 +56,22 @@ async function getGenreMap() {
   //data.genres returns [{id: 28, name: "Action"}, {id: 12, name: "Adventure"}, ...]
   genreMapCache = new Map(data.genres.map((g) => [g.id, g.name])); //for every item in genres array insert id and name of genre in genreMapCache
 
-  console.log(genreMapCache); //(test to see if runs properly)
-
   return genreMapCache;
 }
 
-getGenreMap();
+// GET /api/genres to populate dropdown by fetching ("/api/genres") on frontend
+app.get("/api/genres", async (req, res) => {
+  //req & res given by express
+  try {
+    const url = `${TMDB_BASE}/genre/movie/list?api_key=${TMDB_API_KEY}&language=en-US`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`TMDB responded with ${response.status}`);
+    }
+    const data = await response.json(); //convert to object
+    res.json(data.genres); // [{ id: 28, name: "Action" }, ...] | convert response to json
+  } catch (error) {
+    console.error("Failed to fetch genres:", error.message);
+    res.status(502).json({ error: "Could not reach TMDB for genres." }); //502 = bad gateway
+  }
+});
