@@ -75,3 +75,42 @@ app.get("/api/genres", async (req, res) => {
     res.status(502).json({ error: "Could not reach TMDB for genres." }); //502 = bad gateway
   }
 });
+
+// GET /api/movie to get random movie based on filters from frontend (genre, year, rating)
+// eg. /api/movie?genre=28&year=1995&rating=4
+app.get("/api/movie", async (req, res) => {
+  try {
+    //for filters if provided in url by client, add to params for TMDB discover endpoint
+    const { genre, year, rating } = req.query; //destructuring. get genre, year, rating from req query parameters eg. /api/movie?genre=28&year=1995 = then req.query is {genre: "28", year: "1995"}
+
+    const params = new URLSearchParams({
+      //let js generate url parameters eg. https://api.themoviedb.org/3/discover/movie?api_key=abc123&include_adult=false&language=en-US
+      api_key: TMDB_API_KEY,
+      include_adult: "false",
+      language: "en-US",
+    });
+
+    // if filter provided add TMDB discover parameters for that filter
+    if (genre) params.set("with_genres", genre);
+    if (year) params.set("primary_release_year", year);
+    if (rating) params.set("vote_average.gte", String(Number(rating) * 2)); //convert 1-5 star rating to 0-10 scale for TMDB
+
+    // First call: find out how many pages of results exist.
+    const url = `${TMDB_BASE}/discover/movie?${params.toString()}&page=1`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`TMDB discover failed: ${response.status}`);
+    }
+    const data = await response.json();
+
+    if (!data.total_pages || data.total_pages === 0) {
+      return res.status(404).json({
+        error: "No movies matched those filters. Try widening them.",
+      });
+    }
+    res.json(data); //testing
+  } catch (error) {
+    console.error("Failed to fetch movie:", error.message);
+    res.status(502).json({ error: "Could not reach TMDB for a movie." });
+  }
+});
