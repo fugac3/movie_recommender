@@ -96,19 +96,44 @@ app.get("/api/movie", async (req, res) => {
     if (rating) params.set("vote_average.gte", String(Number(rating) * 2)); //convert 1-5 star rating to 0-10 scale for TMDB
 
     // First call: find out how many pages of results exist.
-    const url = `${TMDB_BASE}/discover/movie?${params.toString()}&page=1`;
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`TMDB discover failed: ${response.status}`);
+    const firstUrl = `${TMDB_BASE}/discover/movie?${params.toString()}&page=1`;
+    const firstResponse = await fetch(firstUrl);
+    if (!firstResponse.ok) {
+      throw new Error(`TMDB discover failed: ${firstResponse.status}`);
     }
-    const data = await response.json();
+    const firstData = await firstResponse.json();
 
-    if (!data.total_pages || data.total_pages === 0) {
+    if (!firstData.total_pages || firstData.total_pages === 0) {
       return res.status(404).json({
         error: "No movies matched those filters. Try widening them.",
       });
     }
-    res.json(data); //testing
+    res.json(firstData);
+    // TMDB caps discover pagination at 500 pages regardless of total_pages.
+    const maxPage = Math.min(firstData.total_pages, 500); //max page is lesser between total pages or 500 (around 20 movies per page)
+    const randomPage = Math.floor(Math.random() * maxPage) + 1;
+
+    //Fetch random page. If the random page happens to be page 1, reuse what we have
+    let results = firstData.results;
+    if (randomPage !== 1) {
+      const pageUrl = `${TMDB_BASE}/discover/movie?${params.toString()}&page=${randomPage}`;
+      const pageResponse = await fetch(pageUrl);
+      if (!pageResponse.ok) {
+        throw new Error(`TMDB discover page failed: ${pageResponse.status}`);
+      }
+      const pageData = await pageResponse.json();
+      results = pageData.results;
+    }
+
+    if (!results || results.length === 0) {
+      return res.status(404).json({
+        error: "No movies matched those filters. Try widening them.",
+      });
+    }
+
+    const randomMovie = results[Math.floor(Math.random() * results.length)];
+    const genreMap = await getGenreMap();
+    res.json(shapeMovie(randomMovie, genreMap));
   } catch (error) {
     console.error("Failed to fetch movie:", error.message);
     res.status(502).json({ error: "Could not reach TMDB for a movie." });
