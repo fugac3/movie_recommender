@@ -20,10 +20,6 @@ if (!TMDB_API_KEY) {
 
 app.use(express.static(path.join(__dirname))); //serve files in current dir
 
-app.listen(PORT, () => {
-  console.log(`Movie recommender running at http://localhost:${PORT}`);
-});
-
 //Creates and returns movie object using only necessary details for frontend
 function shapeMovie(movie, genreMap) {
   //Get genre names (from id to genre name) for movie using genreMap function
@@ -108,7 +104,7 @@ app.get("/api/movie", async (req, res) => {
         error: "No movies matched those filters. Try widening them.",
       });
     }
-    res.json(firstData);
+
     // TMDB caps discover pagination at 500 pages regardless of total_pages.
     const maxPage = Math.min(firstData.total_pages, 500); //max page is lesser between total pages or 500 (around 20 movies per page)
     const randomPage = Math.floor(Math.random() * maxPage) + 1;
@@ -138,4 +134,8 @@ app.get("/api/movie", async (req, res) => {
     console.error("Failed to fetch movie:", error.message);
     res.status(502).json({ error: "Could not reach TMDB for a movie." });
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`Movie recommender running at http://localhost:${PORT}`);
 });

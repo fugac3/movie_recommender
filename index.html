@@ -29,12 +29,20 @@
                 <option value="drama">Drama</option> -->
             </select>
 
-            <label>Year</label>
-            <input type="range" id="year-slider" min="1920" max="2025">
-            <p id="year-value">2025</p>
+            <input type="range" id="year-slider" min="1920" max="2026" value="2026"
+                oninput="document.getElementById('year-value').textContent = this.value" disabled>
+            <!-- change year value paragraph based on slider-->
+            <p id="year-value">2026</p>
+            <label style="display:flex; align-items:center; gap:0.4rem; text-transform:none; font-size:0.75rem;">
+                <input type="checkbox" id="year-filter-enabled"
+                    onchange="document.getElementById('year-slider').disabled = !this.checked">
+                <!-- toggle year slider -->
+                Filter by year
+            </label>
 
             <label>Rating</label>
             <select id="rating-btn">
+                <option value="">Any rating</option>
                 <option value="1">1 Star</option>
                 <option value="2">2 Stars</option>
                 <option value="3">3 Stars</option>
