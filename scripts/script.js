@@ -4,79 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   showRandomMovie();
 });
 
-//- not using csv anymore
-// async function loadMovies() {
-//   const response = await fetch("scripts/movies.csv");
-//   const csvText = await response.text(); //turn csv response to text
-//   const parsed = Papa.parse(csvText, { header: true }); //turn into object || header makes headings keys
-//   const movies = parsed.data; //return only the data portion of parsed object
-//   return movies; //return array of movie objects
-// }
-
-// console.log(loadMovies());
-
-//- moved to server.js
-// async function randomMovieGenerator(movies = []) {
-//   //get random movie from array of movies | if no array passed in (aka default empty), load from csv
-//   if (movies.length === 0) movies = await loadMovies(); //load csv movies if none passed in
-//   let randomMovieIndex = Math.floor(Math.random() * movies.length); //get random index in array of movies
-//   return movies[randomMovieIndex];
-// }
-
-// console.log(randomMovieGenerator());
-
-//- tmdb has seperate fields for movie elements
-// async function movieElements(randomMovie) {
-//   const movieTitleHtml = document.getElementById("movie-title");
-//   const movieGenreHtml = document.getElementById("movie-genre");
-//   const movieYearHtml = document.getElementById("movie-year");
-
-//   const movie = randomMovie || (await randomMovieGenerator()); //get random movie if not passed in
-
-//   let movieTitle;
-//   let movieYear;
-
-//   const regex = /^(.*?)\s*\((\d{4})\)\s*$/; //structure for title: return movie title and year "(Totoro (Studio Ghibli) (1990))"
-//   const match = movie.title.match(regex); //if title and regex matches...
-
-//   //title will be first part and year second
-//   if (match) {
-//     movieTitle = match[1].trim();
-//     movieYear = match[2].trim();
-//   }
-
-//   movieTitleHtml.textContent = movieTitle;
-//   movieGenreHtml.textContent = movie.genres;
-//   movieYearHtml.textContent = movieYear;
-// }
-
-//- depended on movie elements to populate movie card, but now get movie data from server
-// function populateMovie(movie) {
-//   randomMovieButton = document.getElementById("random-movie");
-//   randomMovieButton.addEventListener("click", () => {
-//     movieElements(movie); // populate movie card by calling movieElements
-//   });
-// }
-
-// populateMovie();
-
-//- not using csv anymore
-// async function listGenres() {
-//   const movies = await loadMovies(); //get movies first (await promise)
-
-//   const genreSet = new Set();
-//   for (const movie of movies) {
-//     if (!movie.genres) continue; //skip if no genres
-//     const genres = movie.genres.split("|");
-//     for (const genre of genres) {
-//       genreSet.add(genre);
-//     }
-//   }
-//   return genreSet;
-// }
-
-// console.log(listGenres());
-
 // Reads the current filter values from the DOM and puts them into one object.
 function getActiveFilters() {
   const genre = document.getElementById("genre-btn").value; //selected genre id or "" for Any genre
@@ -189,24 +116,3 @@ async function populateGenresDropdown() {
     console.error(error.message);
   }
 }
-
-//- reloaded csv to get movies of specific genre, now use query parameters
-// async function randomMovieBasedOnGenre() {
-//   const movies = await loadMovies();
-//   const selectGenreButton = document.getElementById("genre-btn"); //select element in HTML
-//   selectGenreButton.addEventListener("change", async (event) => {
-//     const selectedGenre = event.target.value; //grab value of selected genre
-//     const moviesInGenre = [];
-
-//     for (const movie of movies) {
-//       if (movie.genres.includes(selectedGenre)) {
-//         moviesInGenre.push(movie);
-//       }
-//     }
-
-//     const randomMovieInGenre = await randomMovieGenerator(moviesInGenre);
-//     movieElements(randomMovieInGenre);
-//   });
-// }
-
-// randomMovieBasedOnGenre();
