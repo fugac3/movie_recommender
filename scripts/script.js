@@ -68,7 +68,7 @@ function renderMovie(movie) {
   );
 
   const posterEl = document.getElementById("movie-poster");
-  posterEl.src = movie.poster || "content/notebook.jpeg"; //fallback placeholder if TMDB has no poster
+  posterEl.src = movie.poster || "content/poster-placeholder.jpg"; //fallback placeholder if TMDB has no poster
   posterEl.alt = `${movie.title} poster`; //accessible alt text
 }
 
